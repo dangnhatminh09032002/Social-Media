@@ -1,1 +1,1 @@
-# Social-Medial
+# Social-Media
