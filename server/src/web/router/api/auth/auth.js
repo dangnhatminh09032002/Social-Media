@@ -1,7 +1,7 @@
 const authRouter = require("express").Router();
 const bcrypt = require("bcrypt");
 
-const User = require("../../../models/User");
+const User = require("../../../../models/User");
 
 //---- all: "./api/auth" ----//
 authRouter.post("/register", async (req, res, next) => {
@@ -17,9 +17,9 @@ authRouter.post("/register", async (req, res, next) => {
 
     // Create new user
     const newUser = await new User({
-      userName: req.body.userName,
+      username: req.body.username,
       email: req.body.email,
-      password: hashedPassword,
+      hash: hashedPassword,
     });
 
     // Save user and respond
@@ -44,10 +44,7 @@ authRouter.post("/login", async (req, res, next) => {
       return;
     }
 
-    const vaildPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
+    const vaildPassword = await bcrypt.compare(req.body.password, user.hash);
 
     if (!vaildPassword) {
       res.status(404).send("Email or password is incorrect");
