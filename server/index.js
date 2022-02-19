@@ -55,6 +55,9 @@ if (!isProduction) {
   app.use(errorhandler());
 }
 
+// Passport
+require("./src/configs/passport.config");
+
 // Router for server
 const web = require("./src/web");
 web(app);
